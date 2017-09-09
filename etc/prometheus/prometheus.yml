@@ -1,0 +1,35 @@
+global:
+  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+
+#Add a line for any additional rule files that you would like to add. You can also add any rules that you would like to specify to the alert.rules file that is already created for you.
+rule_files:
+  - "/etc/prometheus/rules/alert.rules"
+
+# Scrape configs are below. To use the lustre and node jobs, uncomment the lustre and node job blocks, and add all ip addresses that need to be monitored. Do not change the prometheus job block.
+# Note that you all lustre targets will end in :9169 and all node targets will end in :9100. You should have an entry for each machine in the lustre cluster (with the exception of the server that this package is installed on) in both the lustre and node job blocks.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+#START OF LUSTRE JOB BLOCK
+#  - job_name: 'lustre'
+#    static_configs:
+#      - targets: ['target.ip.or.address:9169', 'target.2.ip.or.address:9169']
+#END OF LUSTRE JOB BLOCK
+
+#START OF NODE JOB BLOCK
+#  - job_name: 'node'
+#    static_configs:
+#      - targets: ['target.ip.or.address:9100', 'target.2.ip.or.address:9100']
+#END OF NODE JOB BLOCK
+
+# Do not modify the alerting block unless you have customized the alertmanager location somehow
+alerting:
+  alertmanagers:
+  - scheme: https
+    static_configs:
+    - targets:
+      - "localhost:9093"

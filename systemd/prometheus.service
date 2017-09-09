@@ -1,0 +1,11 @@
+[Unit]
+Description=Prometheus
+
+[Service]
+EnvironmentFile=/etc/sysconfig/prometheus
+ExecStartPre=/usr/sbin/prometheus_memory.sh
+ExecStart=/usr/sbin/prometheus -config.file=/etc/prometheus/prometheus.yml -storage.local.path=/var/lib/prometheus/data -storage.local.target-heap-size=${MEMORY} -storage.local.retention=744h0m0s
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
