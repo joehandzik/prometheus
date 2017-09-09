@@ -1,0 +1,9 @@
+# Alert for any unreachable exporter (when down for more than 3 minutes)
+ALERT ExporterDown
+  IF up == 0
+  FOR 3m
+  LABELS { severity = "warning" }
+  ANNOTATIONS {
+    summary = "Instance {{ $labels.instance }} down",
+    description = "{{ $labels.instance }} of job {{ $labels.job }} has been down for at least 3 minutes."
+  }
