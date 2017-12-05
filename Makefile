@@ -28,11 +28,13 @@ endif
 
 STATICCHECK_IGNORE = \
   github.com/prometheus/prometheus/discovery/kubernetes/node.go:SA1019 \
+  github.com/prometheus/prometheus/discovery/kubernetes/kubernetes.go:SA1019 \
   github.com/prometheus/prometheus/documentation/examples/remote_storage/remote_storage_adapter/main.go:SA1019 \
   github.com/prometheus/prometheus/storage/local/codable/codable.go:SA6002 \
   github.com/prometheus/prometheus/storage/local/persistence.go:SA6002 \
   github.com/prometheus/prometheus/storage/remote/queue_manager.go:SA1015 \
-  github.com/prometheus/prometheus/web/web.go:SA1019
+  github.com/prometheus/prometheus/web/web.go:SA1019 \
+  github.com/prometheus/prometheus/web/api/v1/api.go:SA9004
 
 all: format staticcheck build test
 
